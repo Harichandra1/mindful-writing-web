@@ -84,14 +84,17 @@ export default function Editor({ document, onDocumentChange }: EditorProps) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Untitled Document"
-        className="text-2xl md:text-3xl font-serif font-medium border-none focus:outline-none bg-transparent w-full px-4 md:px-8 lg:px-16 py-4 mt-8"
+        className="text-2xl md:text-3xl font-serif font-medium border-none focus:outline-none bg-transparent w-full px-4 md:px-8 lg:px-16 py-4 mt-8 text-left"
+        dir="ltr"
       />
       <div
         ref={editorRef}
         contentEditable
         suppressContentEditableWarning
         onInput={(e) => setContent(e.currentTarget.textContent || "")}
-        className="editor-content"
+        className="editor-content text-left"
+        dir="ltr"
+        style={{ direction: "ltr", textAlign: "left" }}
         dangerouslySetInnerHTML={{ __html: content }}
       />
     </div>
