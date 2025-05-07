@@ -68,6 +68,12 @@ export default function Editor({ document, onDocumentChange }: EditorProps) {
       editorRef.current.focus();
     }
   }, [document]);
+
+  // Handle content input directly without relying solely on contentEditable
+  const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
+    const newContent = e.currentTarget.textContent || "";
+    setContent(newContent);
+  };
   
   if (!document) {
     return (
@@ -91,12 +97,17 @@ export default function Editor({ document, onDocumentChange }: EditorProps) {
         ref={editorRef}
         contentEditable
         suppressContentEditableWarning
-        onInput={(e) => setContent(e.currentTarget.textContent || "")}
+        onInput={handleContentChange}
         className="editor-content text-left"
         dir="ltr"
-        style={{ direction: "ltr", textAlign: "left" }}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+        style={{ 
+          direction: "ltr", 
+          textAlign: "left",
+          unicodeBidi: "normal"
+        }}
+      >
+        {content}
+      </div>
     </div>
   );
 }
