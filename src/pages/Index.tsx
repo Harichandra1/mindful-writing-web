@@ -13,8 +13,9 @@ const Index = () => {
   // Apply theme on component mount
   useEffect(() => {
     const theme: Theme = getTheme();
-    document.documentElement.classList.remove('light', 'dark', 'solarized-light', 'solarized-dark');
-    document.documentElement.classList.add(theme);
+    // Use window.document instead of document to fix TypeScript error
+    window.document.documentElement.classList.remove('light', 'dark', 'solarized-light', 'solarized-dark');
+    window.document.documentElement.classList.add(theme);
   }, []);
   
   // Load document from URL params or from localStorage
